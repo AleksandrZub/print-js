@@ -42,6 +42,22 @@ function erasing() {
     ctx.strokeStyle='white';
     painting=true;
 }
+function repaintToCurrentIndex() {
+    ctx.stroke();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for (let ind = 0; ind <= currentPathIndex; ind++){
+        const path = paths[ind];
+        if (path.length > 0) {
+            ctx.beginPath();
+            ctx.moveTo(path[0].x,path[0].y);
+            for(let i = 1; i < path.length; i++){
+                ctx.strokeStyle = path[i].strokeStyle;
+                ctx.lineTo(path[i].x,path[i].y); 
+            }
+            ctx.stroke();
+        }
+    }
+}
 function onMouseMove(event) {
     x=event.offsetX;
     y=event.offsetY;
@@ -91,23 +107,6 @@ function handleSaveClick() {
     link.href=image;
     link.download="PaintJS(Export).jpg";
     link.click();
-}
-
-function repaintToCurrentIndex() {
-    ctx.stroke();
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for (let ind = 0; ind <= currentPathIndex; ind++){
-        const path = paths[ind];
-        if (path.length > 0) {
-            ctx.beginPath();
-            ctx.moveTo(path[0].x,path[0].y);
-            for(let i = 1; i < path.length; i++){
-                ctx.strokeStyle = path[i].strokeStyle;
-                ctx.lineTo(path[i].x,path[i].y); 
-            }
-            ctx.stroke();
-        }
-    }
 }
 
 
@@ -179,11 +178,11 @@ document.addEventListener("keyup", function(event) {
                 stopPainting();
                 break;
             case 'KeyO':
-                ctx.strokeStyle='orange';
+                ctx.strokeStyle='#2c2c2c';
                 stopPainting();
                 break;
             case 'ControlRight':
-                strokeStyle='#2c2c2c';
+                ctx.strokeStyle='#2c2c2c';
                 stopPainting();
                 break;
             case 'KeyP':
@@ -191,7 +190,7 @@ document.addEventListener("keyup", function(event) {
                 stopPainting();
                 break;
             case 'ShiftLeft':
-                strokeStyle='#2c2c2c';
+                ctx.strokeStyle='#2c2c2c';
                 stopPainting();
                 break;
             case 'ControlLeft':
@@ -203,31 +202,36 @@ document.addEventListener("keyup", function(event) {
         }
     }
 });
+
 document.addEventListener("keypress", function(event) {
         // Key press
         switch (event.code) {
             case "KeyR":
                 ctx.strokeStyle='red';
-                painting=true;
+                startPainting();
                 break;
             case "KeyW":
                 ctx.strokeStyle='white';
-                painting=true;
+                startPainting();
                 break;
             case "KeyG":
                 ctx.strokeStyle='green';
-                painting=true;
+                startPainting();
                 break;
             case "KeyY":
                 ctx.strokeStyle='yellow';
-                painting=true;
+                startPainting();
                 break;
             case "KeyB":
                 ctx.strokeStyle='blue';
-                painting=true;
+                startPainting();
                 break;
             case "KeyO":
                 ctx.strokeStyle='orange';
+                startPainting();
+                break;
+            case 'KeyP':
+                ctx.strokeStyle='rgb(95,26,234)';
                 painting=true;
                 break;
             default:
@@ -235,30 +239,26 @@ document.addEventListener("keypress", function(event) {
         }
     }
 )
+
 document.addEventListener("keydown", function(event) {
-    if (event.code=='ControlLeft') {
-        ctx.strokeStyle='#2c2c2c';
-        painting=true;
+    switch (event.code) {
+        case 'ControlLeft':
+            ctx.strokeStyle='#2c2c2c';
+            painting=true;
+            break;
+
+        case 'ControlRight':
+            ctx.strokeStyle='#2c2c2c';
+            painting=true;
+            break;
+
+        case 'ShiftLeft':
+            ctx.strokeStyle=ctx.fillStyle;
+            painting=true;
+            break;
     }
 })
-document.addEventListener("keydown", function(event) {
-    if (event.code=='ControlRight') {
-        ctx.strokeStyle='#2c2c2c';
-        painting=true;
-    }
-})
-document.addEventListener("keypress", function(event) {
-    if (event.code=='KeyP') {
-        ctx.strokeStyle='rgb(95,26,234)';
-        painting=true;
-    }
-})
-document.addEventListener("keydown", function(event) {
-    if (event.code=='ShiftLeft') {
-        ctx.strokeStyle=ctx.fillStyle;
-        painting=true;
-    }
-})
+
 Array.from(colors).forEach(color => color.addEventListener('click', changeColor));
 
 if (range) {
