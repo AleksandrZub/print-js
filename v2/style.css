@@ -1,0 +1,23 @@
+* {margin: 0; padding: 0;}
+
+canvas {}
+
+#indicator {
+   position: absolute;
+   
+ 
+   
+   
+  border: 0.1875em solid red;
+  border-radius: 50%;
+  background :'grey';
+  
+  
+  
+  height: 18px; 
+  width: 18px;
+}
+
+.isWrite {
+    background-color: red!important;
+}
