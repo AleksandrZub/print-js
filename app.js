@@ -45,6 +45,8 @@ function erasing() {
 function repaintToCurrentIndex() {
     ctx.stroke();
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='white';
+    ctx.fillRect(0,0,canvas_size_x,canvas_size_y)
     for (let ind = 0; ind <= currentPathIndex; ind++){
         const path = paths[ind];
         if (path.length > 0) {
