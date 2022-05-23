@@ -1,2 +1,0 @@
-# touchpart
-site touchpart.ru

@@ -199,6 +199,9 @@ document.addEventListener("keyup", function(event) {
                 ctx.strokeStyle='#2c2c2c';
                 stopPainting();
                 break;
+            case 'Tab':
+                document.location.href="C:\\Users\\zubar\\Desktop\\touchpart\\simplePart\\index.html";
+                break;
             default:
                 break;
         }
