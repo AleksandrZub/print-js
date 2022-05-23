@@ -78,7 +78,7 @@ class Cursor {
             console.log(ctx.fillStyle, this.color);
             break;
         
-        case 'Tab':
+        case 'CapsLock':
             document.location.href="C:\\Users\\zubar\\Desktop\\touchpart\\hardPart\\index.html";
             break;
             
